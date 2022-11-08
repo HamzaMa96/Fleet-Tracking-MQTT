@@ -89,12 +89,15 @@ def publish_Fake_Sensor_Values_to_MQTT():
 			Battery_Level = int(random.uniform(25, 100))
 			Device_Tampering = int(random.uniform(0, 2))
 			Engine_RPM = float("{0:.1f}".format(random.uniform(1, 6000)))
+			x += 0.0009000
+			y += 0.0009000
 		else:
 			Working_Hours = 0
 			Battery_Level = 0
 			Device_Tampering = int(random.uniform(0, 2))
 			Engine_RPM = 0
-
+			x = 31.2647639
+			y = 30.0385172
 		features=[
 				{
 					"attributes":{
@@ -105,18 +108,18 @@ def publish_Fake_Sensor_Values_to_MQTT():
 					"batterylevel": str(Battery_Level),
 					"devicetampering": str(Device_Tampering),
 					"enginerpm": str(Engine_RPM),
-					"longitude": str(location.split(",")[0]),
-					"latitude": str(location.split(",")[1])
+					"longitude": x,
+					"latitude": y
 					},
 					"geometry" : {
-					"x" : str(location.split(",")[0]),
-					"y" : str(location.split(",")[1])
+					"x" : x,
+					"y" : y
 					}
 				}
 			]
 		print(f"deviceid: {device_id},\n datetime: {Sensor_time},\n enginestatus: {Engine_status},\n workinghours: {Working_Hours},\n batterylevel: {Battery_Level},\n devicetampering: {Device_Tampering},\n enginerpm: {Engine_RPM},\n longitude: {x},\n latitude: {y}")
 
-		url= 'https://192.168.10.17/server/rest/services/iot/FeatureServer/0/addFeatures/'
+		url= 'https://192.168.10.17/server/rest/services/IOT_1/FeatureServer/0/addFeatures/'
 		headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
 		params = urllib.parse.urlencode({'f': 'json', 'features': json.dumps(features)})
 		r = requests.post(url, verify=False ,data= params, headers= headers)

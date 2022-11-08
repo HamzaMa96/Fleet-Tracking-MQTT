@@ -118,7 +118,7 @@ def publish_Fake_Sensor_Values_to_MQTT():
 			]
 		print(f"deviceid: {device_id},\n datetime: {Sensor_time},\n enginestatus: {Engine_status},\n workinghours: {Working_Hours},\n batterylevel: {Battery_Level},\n devicetampering: {Device_Tampering},\n enginerpm: {Engine_RPM},\n longitude: {x},\n latitude: {y}")
 
-		url= 'https://192.168.10.17/server/rest/services/iot/FeatureServer/0/addFeatures/'
+		url= 'https://192.168.10.17/server/rest/services/IOT_1/FeatureServer/0/addFeatures/'
 		headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
 		params = urllib.parse.urlencode({'f': 'json', 'features': json.dumps(features)})
 		r = requests.post(url, verify=False ,data= params, headers= headers)

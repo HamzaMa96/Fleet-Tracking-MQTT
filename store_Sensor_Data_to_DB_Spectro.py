@@ -32,42 +32,79 @@ def IOT_Data(jsonData):
 		TotalOperationHour = json_Dict['29']
 	else:
 		TotalOperationHour = np.nan
-# elif "16" in json_Dict:
-	Working_Hours = json_Dict['16']
-# elif "06" in json_Dict:
-	DeviceUpTime = json_Dict['06']
-# elif "01" in json_Dict:
-	TimeStamp = json_Dict['01']
-# elif "07" in json_Dict:
-	BuiltInBattery = json_Dict['07']
-# elif "09" in json_Dict:
-	ExternalPowerSource = json_Dict['09']
-# elif "25" in json_Dict:
-	CellularRSSI = json_Dict['25']
-# elif "00" in json_Dict:
-	IMEI = json_Dict['00']
-# elif "22" in json_Dict:
-	GPS_Location = json_Dict['22']
-	x = GPS_Location.split(',')[0]
-	y = GPS_Location.split(',')[1]
-# elif "13" in json_Dict:
-	EngineTemp = json_Dict['13']
-# elif "14" in json_Dict:
-	EngineRPM = json_Dict['14']
-# elif "30" in json_Dict:
-	CarBatteryLevel = json_Dict['30']
-# elif "15" in json_Dict:
-	CoolantLevel = json_Dict['15']
-# elif "17" in json_Dict:
-	FuelConsumption = json_Dict['17']
-# elif "18" in json_Dict:
-	FuelTankLevel = json_Dict['18']
-# elif "20" in json_Dict:
-	CarSpeed = json_Dict['20']
-# elif "23" in json_Dict:
-	VehicleDistance = json_Dict['23']
-# elif "28" in json_Dict:
-	MAC = json_Dict['28']
+	if not(json_Dict.get("16") is None):
+		Working_Hours = json_Dict['16']
+	else:
+		Working_Hours = np.nan
+	if not(json_Dict.get("06") is None):
+		DeviceUpTime = json_Dict['06']
+	else:
+		DeviceUpTime = np.nan
+	if not(json_Dict.get("01") is None):
+		TimeStamp = json_Dict['01']
+		time = pd.to_datetime(TimeStamp)
+	else:
+		TimeStamp = np.nan
+	if not(json_Dict.get("07") is None):
+		BuiltInBattery = json_Dict['07']
+	else:
+		BuiltInBattery = np.nan
+	if not(json_Dict.get("09") is None):
+		ExternalPowerSource = json_Dict['09']
+	else:
+		ExternalPowerSource = np.nan
+	if not(json_Dict.get("25") is None):
+		CellularRSSI = json_Dict['25']
+	else:
+		CellularRSSI = np.nan
+	if not(json_Dict.get("00") is None):
+		IMEI = json_Dict['00']
+	else:
+		IMEI = np.nan
+	if not(json_Dict.get("22") is None):
+		GPS_Location = json_Dict['22']
+		x = GPS_Location.split(',')[0]
+		y = GPS_Location.split(',')[1]
+	else:
+		GPS_Location = np.nan
+		x = np.nan
+		y = np.nan
+	if not(json_Dict.get("13") is None):
+		EngineTemp = json_Dict['13']
+	else:
+		EngineTemp = np.nan
+	if not(json_Dict.get("14") is None):
+		EngineRPM = json_Dict['14']
+	else:
+		EngineRPM = np.nan
+	if not(json_Dict.get("30") is None):
+		CarBatteryLevel = json_Dict['30']
+	else:
+		CarBatteryLevel = np.nan
+	if not(json_Dict.get("15") is None):
+		CoolantLevel = json_Dict['15']
+	else:
+		CoolantLevel = np.nan
+	if not(json_Dict.get("17") is None):
+		FuelConsumption = json_Dict['17']
+	else:
+		FuelConsumption = np.nan
+	if not(json_Dict.get("18") is None):
+		FuelTankLevel = json_Dict['18']
+	else:
+		FuelTankLevel = np.nan
+	if not(json_Dict.get("20") is None):
+		CarSpeed = json_Dict['20']
+	else:
+		CarSpeed = np.nan
+	if not(json_Dict.get("23") is None):
+		VehicleDistance = json_Dict['23']
+	else:
+		VehicleDistance = np.nan
+	if not(json_Dict.get("28") is None):
+		MAC = json_Dict['28']
+	else:
+		MAC = np.nan
 	if not(json_Dict.get("04") is None):
 		Firmware = json_Dict['04']
 	else:
@@ -90,7 +127,7 @@ def IOT_Data(jsonData):
 				{
 					"attributes":{
 					"IMEI": str(IMEI),
-					"datetime": str(pd.to_datetime(TimeStamp)),
+					"datetime": str(time),
 					"FirmWare": str(Firmware),
 					"UpTime": str(DeviceUpTime),
 					"BuiltInBattery": str(BuiltInBattery),
