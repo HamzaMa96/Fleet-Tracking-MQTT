@@ -5,7 +5,7 @@ import urllib
 import requests
 import numpy as np
 import pandas as pd
-from datetime import datetime, date, time, timedelta
+import time
 # postgres DB credentials
 DB_Name =  "mqtt"
 hostname = 'localhost'
@@ -42,7 +42,7 @@ def IOT_Data(jsonData):
 		DeviceUpTime = np.nan
 	if not(json_Dict.get("01") is None):
 		TimeStamp = json_Dict['01']
-		time = pd.to_datetime(TimeStamp)
+		date = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(TimeStamp))
 	else:
 		TimeStamp = np.nan
 	if not(json_Dict.get("07") is None):
@@ -127,7 +127,7 @@ def IOT_Data(jsonData):
 				{
 					"attributes":{
 					"IMEI": str(IMEI),
-					"datetime": str(time),
+					"datetime": str(date),
 					"FirmWare": str(Firmware),
 					"UpTime": str(DeviceUpTime),
 					"BuiltInBattery": str(BuiltInBattery),
@@ -157,7 +157,7 @@ def IOT_Data(jsonData):
 				}
 			]
 
-	url= 'https://192.168.10.17/server/rest/services/Spectro_IOT_Data/FeatureServer/0/addFeatures/'
+	url= 'https://192.168.10.17/server/rest/services/Spectro/FeatureServer/0/addFeatures/'
 	headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
 	params = urllib.parse.urlencode({'f': 'json', 'features': json.dumps(features)})
 	r = requests.post(url, verify=False ,data= params, headers= headers)
@@ -170,13 +170,13 @@ def IOT_Data(jsonData):
 	# curs.execute("UPDATE sde.iot_data2 SET shape = ST_SetSRID(ST_MakePoint(longitude, latitude), 4326);")
 	conn.commit()
 	print ("Inserted Spectro_IOT_Data into Database.")
-	print(TimeStamp)
+	print(date)
 	print ("")
 	
 #===============================================================
 # Master Function to Select DB Funtion based on MQTT Topic
 
-def sensor_Data_Handler_1(Topic, jsonData):
+def sensor_Data_Handler_Spectro(Topic, jsonData):
 	if Topic == "IOT/Vehicle/Data":
 		IOT_Data(jsonData)
 #===============================================================

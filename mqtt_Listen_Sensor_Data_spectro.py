@@ -1,6 +1,6 @@
 from copy import copy
 import paho.mqtt.client as mqtt
-from store_Sensor_Data_to_DB_Spectro import sensor_Data_Handler_1
+from store_Sensor_Data_to_DB_Spectro import sensor_Data_Handler_Spectro
 import json
 import time
 
@@ -23,11 +23,7 @@ def on_message(mosq, obj, msg):
 	print ("Data: " , msg.payload)
 	print ("MQTT Data Received...")
 	print("-------------------------------------")
-	sensor_Data_Handler_1(msg.topic, msg.payload)
-	time.sleep(10)
-
-
-
+	sensor_Data_Handler_Spectro(msg.topic, msg.payload)
 
 def on_subscribe(mosq, obj, mid, granted_qos):
     pass
