@@ -1,5 +1,6 @@
+from copy import copy
 import paho.mqtt.client as mqtt
-from store_Sensor_Data_to_DB import sensor_Data_Handler
+from store_Sensor_Data_to_DB_copy import sensor_Data_Handler_1
 
 # MQTT Settings 
 MQTT_Broker = "127.0.0.1"
@@ -19,7 +20,7 @@ def on_message(mosq, obj, msg):
 	print ("MQTT Data Received...")
 	print ("MQTT Topic: " , msg.topic)  
 	print ("Data: " , msg.payload)
-	sensor_Data_Handler(msg.topic, msg.payload)
+	sensor_Data_Handler_1(msg.topic, msg.payload)
 
 def on_subscribe(mosq, obj, mid, granted_qos):
     pass
